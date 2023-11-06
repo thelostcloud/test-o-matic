@@ -32,6 +32,7 @@ permissions:
 
 jobs:
   PreGlobal:
+    environment: ${{inputs.env}}-pre-global
     if: ${{ inputs.preGlobal == true }}
     name: ${{ inputs.command }} PreGlobal
     runs-on: ubuntu-latest
@@ -57,6 +58,7 @@ jobs:
 
   Stack:
     needs: PreGlobal
+    environment: ${{inputs.env}}-${{matrix.region}}
     if: always() && (needs.PreGlobal.result == 'success' || needs.PreGlobal.result == 'skipped')
     name: ${{ inputs.command }} Stack ${{ matrix.region }}
     runs-on: ubuntu-latest
@@ -85,6 +87,7 @@ jobs:
 
   PostGlobal:
     needs: Stack
+    environment: ${{inputs.env}}-post-global
     name: ${{ inputs.command }} PostGlobal
     runs-on: ubuntu-latest
     steps:
