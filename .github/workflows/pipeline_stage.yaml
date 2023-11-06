@@ -41,6 +41,7 @@ jobs:
 
   Deploy:
     needs: Diff
+    if: always() && (needs.Diff.result == 'success' || needs.Diff.result == 'skipped')
     uses: ./.github/workflows/pipeline_stage_steps.yaml
     with:
       env: ${{ inputs.env }}
