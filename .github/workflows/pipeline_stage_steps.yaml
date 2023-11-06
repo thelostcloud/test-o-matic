@@ -1,0 +1,66 @@
+name: Jobs - Matrix
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+      regions:
+        required: true
+        type: string
+      diff:
+        required: true
+        type: boolean
+      preGlobal:
+        required: true
+        type: boolean
+      postGlobal:
+        required: true
+        type: boolean
+      command:
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  PipelineSteps:
+    name: ${{inputs.env}}-${{inputs.command}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Info
+        run: |
+          echo "Environment: ${{ inputs.env }}"
+          echo "Region: ${{ inputs.regions }}"
+          echo "Diff: ${{ inputs.diff }}"
+          echo "PreGlobal: ${{ inputs.preGlobal }}"
+          echo "PostGlobal: ${{ inputs.postGlobal }}"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Deps
+        run: |
+          echo "Install Deps"
+
+      - name: PreGlobal
+        if: ${{ inputs.preGlobal == true }}
+        run: |
+          echo "PreGlobal"
+
+      - name: AppStack
+        run: |
+          echo "AppStack"
+
+      - name: SharedStack
+        run: |
+          echo "SharedStack"
+
+      - name: PostGlobal
+        if: ${{ inputs.postGlobal == true }}
+        run: |
+          echo "PostGlobal"

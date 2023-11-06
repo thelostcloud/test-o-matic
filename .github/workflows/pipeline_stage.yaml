@@ -1,0 +1,40 @@
+name: Jobs - Matrix
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+      regions:
+        required: true
+        type: string
+      diff:
+        required: true
+        type: boolean
+      preGlobal:
+        required: true
+        type: boolean
+      postGlobal:
+        required: true
+        type: boolean
+
+env:
+  AWS_REGION: 'us-east-1'
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  Diff:
+    if: inputs.diff == true
+    uses: ./.github/workflows/pipeline_stage_steps.yaml
+    with:
+      env: ${{ inputs.env }}
+      regions: ${{ inputs.regions }}
+      diff: ${{ inputs.diff }}
+      preGlobal: ${{ inputs.preGlobal }}
+      postGlobal: ${{ inputs.postGlobal }}
+      command: 'diff'

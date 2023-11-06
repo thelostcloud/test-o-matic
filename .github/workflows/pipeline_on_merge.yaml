@@ -1,0 +1,28 @@
+name: Actions on Merge to Main
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches: 'main'
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  TestBuild:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/pipeline_test_build.yaml
+
+
+  Dev:
+    needs: TestBuild
+    uses: ./.github/workflows/pipeline_stage.yaml
+    with:
+      env: Dev
+      regions: "['us-east-1','ca-central-1']"
+      diff: false
+      preGlobal: true
+      postGlobal: true
