@@ -24,7 +24,7 @@ jobs:
     needs: TestBuild
     uses: ./.github/workflows/pipeline_stage.yaml
     with:
-      env: Dev
+      env: dev
       regions: "['us-east-1','ca-central-1']"
       diff: false
       preGlobal: true
@@ -35,7 +35,7 @@ jobs:
     needs: Dev
     uses: ./.github/workflows/pipeline_stage.yaml
     with:
-      env: Dev
+      env: prod
       regions: "['us-east-1','ca-central-1']"
       diff: true
       preGlobal: true
