@@ -58,7 +58,7 @@ jobs:
   Stack:
     needs: PreGlobal
     if: always() && (needs.PreGlobal.result == 'success' || needs.PreGlobal.result == 'skipped')
-    name: ${{ inputs.command }} Stack
+    name: ${{ inputs.command }} Stack ${{ matrix.region }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
