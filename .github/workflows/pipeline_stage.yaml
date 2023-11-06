@@ -40,7 +40,6 @@ jobs:
       command: 'diff'
 
   Deploy:
-    if: inputs.diff == true
     uses: ./.github/workflows/pipeline_stage_steps.yaml
     with:
       env: ${{ inputs.env }}

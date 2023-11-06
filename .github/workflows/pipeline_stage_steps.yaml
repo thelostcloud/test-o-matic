@@ -45,22 +45,22 @@ jobs:
 
       - name: Install Deps
         run: |
-          echo "Install Deps"
+          echo "Install Deps ${{inputs.command }}"
 
       - name: PreGlobal
         if: ${{ inputs.preGlobal == true }}
         run: |
-          echo "PreGlobal"
+          echo "PreGlobal ${{inputs.command }}"
 
       - name: AppStack
         run: |
-          echo "AppStack"
+          echo "AppStack ${{inputs.command }}"
 
       - name: SharedStack
         run: |
-          echo "SharedStack"
+          echo "SharedStack ${{inputs.command }}"
 
       - name: PostGlobal
         if: ${{ inputs.postGlobal == true }}
         run: |
-          echo "PostGlobal"
+          echo "PostGlobal ${{inputs.command }}"
