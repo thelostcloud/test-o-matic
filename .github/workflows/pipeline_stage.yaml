@@ -17,6 +17,9 @@ on:
       postGlobal:
         required: true
         type: boolean
+      parallelStack:
+        required: true
+        type: boolean
 
 env:
   AWS_REGION: 'us-east-1'
@@ -37,6 +40,7 @@ jobs:
       diff: ${{ inputs.diff }}
       preGlobal: ${{ inputs.preGlobal }}
       postGlobal: ${{ inputs.postGlobal }}
+      parallelStack: ${{ inputs.parallelStack }}
       command: 'diff'
 
   Deploy:
@@ -49,4 +53,5 @@ jobs:
       diff: ${{ inputs.diff }}
       preGlobal: ${{ inputs.preGlobal }}
       postGlobal: ${{ inputs.postGlobal }}
+      parallelStack: ${{ inputs.parallelStack }}
       command: 'deploy'

@@ -29,6 +29,7 @@ jobs:
       diff: false
       preGlobal: true
       postGlobal: true
+      parallelStack: true
 
   Prod:
     needs: Dev
@@ -39,3 +40,4 @@ jobs:
       diff: true
       preGlobal: true
       postGlobal: true
+      parallelStack: true
