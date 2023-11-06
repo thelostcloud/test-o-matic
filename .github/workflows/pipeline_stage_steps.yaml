@@ -95,6 +95,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: PostGlobal
         if: ${{ inputs.postGlobal == true }}
         run: |
           echo "PostGlobal ${{inputs.command }}"
