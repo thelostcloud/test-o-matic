@@ -40,6 +40,7 @@ jobs:
       command: 'diff'
 
   Deploy:
+    needs: Diff
     uses: ./.github/workflows/pipeline_stage_steps.yaml
     with:
       env: ${{ inputs.env }}
