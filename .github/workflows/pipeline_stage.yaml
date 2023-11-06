@@ -38,3 +38,14 @@ jobs:
       preGlobal: ${{ inputs.preGlobal }}
       postGlobal: ${{ inputs.postGlobal }}
       command: 'diff'
+
+  Deploy:
+    if: inputs.diff == true
+    uses: ./.github/workflows/pipeline_stage_steps.yaml
+    with:
+      env: ${{ inputs.env }}
+      regions: ${{ inputs.regions }}
+      diff: ${{ inputs.diff }}
+      preGlobal: ${{ inputs.preGlobal }}
+      postGlobal: ${{ inputs.postGlobal }}
+      command: 'deploy'
