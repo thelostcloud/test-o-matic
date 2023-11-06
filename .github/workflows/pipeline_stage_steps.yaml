@@ -33,7 +33,7 @@ permissions:
 jobs:
   PreGlobal:
     if: ${{ inputs.preGlobal == true }}
-    name: ${{ inputs.command }}
+    name: ${{ inputs.command }} PreGlobal
     runs-on: ubuntu-latest
     steps:
       - name: Info
@@ -58,7 +58,7 @@ jobs:
   Stack:
     needs: PreGlobal
     if: always() && (needs.PreGlobal.result == 'success' || needs.PreGlobal.result == 'skipped')
-    name: ${{ inputs.command }}
+    name: ${{ inputs.command }} Stack
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -85,7 +85,7 @@ jobs:
 
   PostGlobal:
     needs: Stack
-    name: ${{ inputs.command }}
+    name: ${{ inputs.command }} PostGlobal
     runs-on: ubuntu-latest
     steps:
       - name: Info
