@@ -27,8 +27,8 @@ jobs:
       env: Dev
       regions: "['us-east-1','ca-central-1']"
       diff: false
-      preGlobal: ${{ env.PREGLOBAL }}
-      postGlobal: ${{ env.POSTGLOBAL }}
+      preGlobal: true
+      postGlobal: true
 
   Prod:
     needs: Dev
@@ -37,5 +37,5 @@ jobs:
       env: Dev
       regions: "['us-east-1','ca-central-1']"
       diff: true
-      preGlobal: ${{ env.PREGLOBAL }}
-      postGlobal: ${{ env.POSTGLOBAL }}
+      preGlobal: true
+      postGlobal: true
