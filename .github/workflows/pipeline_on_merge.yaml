@@ -11,11 +11,14 @@ permissions:
   issues: write
   pull-requests: write
 
+env:
+  PREGLOBAL: true
+  POSTGLOBAL: true
+
 jobs:
   TestBuild:
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/pipeline_test_build.yaml
-
 
   Dev:
     needs: TestBuild
@@ -24,5 +27,15 @@ jobs:
       env: Dev
       regions: "['us-east-1','ca-central-1']"
       diff: false
-      preGlobal: true
-      postGlobal: true
+      preGlobal: ${{ env.PREGLOBAL }}
+      postGlobal: ${{ env.POSTGLOBAL }}
+
+  Prod:
+    needs: Dev
+    uses: ./.github/workflows/pipeline_stage.yaml
+    with:
+      env: Dev
+      regions: "['us-east-1','ca-central-1']"
+      diff: true
+      preGlobal: ${{ env.PREGLOBAL }}
+      postGlobal: ${{ env.POSTGLOBAL }}

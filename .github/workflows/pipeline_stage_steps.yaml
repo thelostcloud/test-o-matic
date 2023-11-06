@@ -28,8 +28,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  PipelineSteps:
-    name: ${{inputs.env}}-${{inputs.command}}
+  Steps:
     runs-on: ubuntu-latest
     steps:
       - name: Info
