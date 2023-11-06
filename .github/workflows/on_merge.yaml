@@ -25,4 +25,4 @@ jobs:
       - name: 'Second Step'
         run: |
           echo "the second step command"
-        if: ${{ env.target == 'dev' }}
+        if: ${{ env.target == 'doh' }}
