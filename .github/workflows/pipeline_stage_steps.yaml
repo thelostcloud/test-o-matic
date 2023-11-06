@@ -20,6 +20,9 @@ on:
       command:
         required: true
         type: string
+      parallelStack:
+        required: true
+        type: boolean
 
 permissions:
   id-token: write
@@ -28,7 +31,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  Steps:
+  PreGlobal:
     name: ${{ inputs.command }}
     runs-on: ubuntu-latest
     steps:
@@ -52,15 +55,46 @@ jobs:
         run: |
           echo "PreGlobal ${{inputs.command }}"
 
+  Stack:
+    name: ${{ inputs.command }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        region: ${{ fromJson(inputs.regions) }}
+    steps:
+      - name: Info
+        run: |
+          echo "Environment: ${{ inputs.env }}"
+          echo "Region: ${{ inputs.regions }}"
+          echo "Diff: ${{ inputs.diff }}"
+          echo "PreGlobal: ${{ inputs.preGlobal }}"
+          echo "PostGlobal: ${{ inputs.postGlobal }}"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: AppStack
         run: |
-          echo "AppStack ${{inputs.command }}"
+          echo "AppStack ${{inputs.command }} ${{ matrix.region }}"
 
       - name: SharedStack
         run: |
-          echo "SharedStack ${{inputs.command }}"
+          echo "SharedStack ${{inputs.command }} ${{ matrix.region }}"
 
-      - name: PostGlobal
+  PostGlobal:
+    name: ${{ inputs.command }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Info
+        run: |
+          echo "Environment: ${{ inputs.env }}"
+          echo "Region: ${{ inputs.regions }}"
+          echo "Diff: ${{ inputs.diff }}"
+          echo "PreGlobal: ${{ inputs.preGlobal }}"
+          echo "PostGlobal: ${{ inputs.postGlobal }}"
+
+      - name: Checkout
+        uses: actions/checkout@v3
         if: ${{ inputs.postGlobal == true }}
         run: |
           echo "PostGlobal ${{inputs.command }}"
