@@ -29,6 +29,7 @@ permissions:
 
 jobs:
   Steps:
+    name: ${{ inputs.command }}
     runs-on: ubuntu-latest
     steps:
       - name: Info
